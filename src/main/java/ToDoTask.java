@@ -1,5 +1,5 @@
 public class ToDoTask extends Task {
-    public ToDoTask(String taskName) {
+    public ToDoTask(String taskName) throws EmptyDescriptionException {
         super(taskName);
     }
 

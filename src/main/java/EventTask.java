@@ -2,7 +2,7 @@ public class EventTask extends Task {
     private String startTime;
     private String endTime;
 
-    public EventTask(String taskDescription) {
+    public EventTask(String taskDescription) throws EmptyDescriptionException {
         super(EventTask.getTaskName(taskDescription));
         this.startTime = EventTask.getStartTime(taskDescription);
         this.endTime = EventTask.getEndTime(taskDescription);

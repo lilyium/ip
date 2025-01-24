@@ -1,7 +1,7 @@
 public class DeadlineTask extends Task {
     private String deadline;
 
-    public DeadlineTask(String taskDescription) {
+    public DeadlineTask(String taskDescription) throws EmptyDescriptionException {
         super(DeadlineTask.getTaskName(taskDescription));
         this.deadline = DeadlineTask.getDeadline(taskDescription);
     }
