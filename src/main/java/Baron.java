@@ -43,6 +43,10 @@ public class Baron {
                     Task task = taskList.get(taskList.size() - 1);
                     System.out.println("Got it. I've added this task:\n  " + task
                             + "\nNow you have " + taskList.size() + " tasks in the list.");
+                } else if (input.startsWith("delete ")) {
+                    Task task = taskList.remove(Integer.parseInt(input.substring(7)) - 1);
+                    System.out.println("Noted. I've removed this task:\n  " + task
+                            + "\nNow you have " + taskList.size() + " tasks in the list.");
                 } else {
                     throw new InvalidCommandException();
                 }
