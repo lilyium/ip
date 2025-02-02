@@ -1,3 +1,23 @@
+package baron;
+
+import baron.command.Command;
+import baron.command.DeadlineCommand;
+import baron.command.DeleteCommand;
+import baron.command.EventCommand;
+import baron.command.ListCommand;
+import baron.command.MarkCommand;
+import baron.command.ToDoCommand;
+import baron.command.UnmarkCommand;
+import baron.exception.EmptyDescriptionException;
+import baron.exception.InvalidCommandException;
+import baron.exception.InvalidDateTimeException;
+import baron.exception.ReservedCharacterException;
+import baron.exception.WrongUsageException;
+import baron.task.DeadlineTask;
+import baron.task.EventTask;
+import baron.task.Task;
+import baron.task.ToDoTask;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -8,6 +28,9 @@ public class Parser {
     private static final String TODO_TASK = "T";
     private static final String DEADLINE_TASK = "D";
     private static final String EVENT_TASK = "E";
+
+    private static final String DELIMITER = " \\| ";
+    public static final DateTimeFormatter DATETIMEFORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     public static Command parseCommand(String input) throws EmptyDescriptionException, InvalidCommandException, WrongUsageException, ReservedCharacterException, InvalidDateTimeException {
         String trimmed_input = input.trim();
@@ -20,7 +43,7 @@ public class Parser {
         String[] split_input = trimmed_input.split(" ", 2);
         if (split_input.length == 0) {
             return Command.getEmptyCommand();
-        } else if (split_input.length == 1){
+        } else if (split_input.length == 1) {
             throw new EmptyDescriptionException();
         } else {
             String keyword = split_input[0];
@@ -105,6 +128,7 @@ public class Parser {
             throw new WrongUsageException();
         }
     }
+
     public static void checkReservedCharacters(String details) throws ReservedCharacterException {
         if (details.contains("|") || details.contains("/")) {
             throw new ReservedCharacterException();
@@ -112,7 +136,7 @@ public class Parser {
     }
 
     public static Task parseSavedTask(String savedTask) throws EmptyDescriptionException, InvalidDateTimeException {
-        String[] splitSavedTask = savedTask.split(DefaultFormat.delimiter());
+        String[] splitSavedTask = savedTask.split(DELIMITER);
         switch (splitSavedTask[0]) {
         case TODO_TASK:
             return new ToDoTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2]);
@@ -129,7 +153,7 @@ public class Parser {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .append(DateTimeFormatter.ofPattern(
                         "[yyyy-M-d]" + "[d-M-yyyy]" + "[d-M]" + "[yyyy/M/d]" + "[d/M/yyyy]" + "[d/M]"
-                        + "[d MMM yyyy]" + "[d MMM]" + "[MMM d yyyy]" + "[MMM d]"
+                                + "[d MMM yyyy]" + "[d MMM]" + "[MMM d yyyy]" + "[MMM d]"
                 ))
                 .appendOptional(DateTimeFormatter.ofPattern(" " +
                         "[HHmm]" + "[HH:mm]"
@@ -140,7 +164,7 @@ public class Parser {
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 59)
                 .toFormatter();
         try {
-            return LocalDateTime.parse(dateTimeString, formatter);
+            return LocalDateTime.parse(dateTimeString, DATETIMEFORMAT);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
         }

@@ -1,9 +1,13 @@
+package baron;
+
+import baron.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String WELCOME_MSG = "Hello! I'm Baron.\nWhat can I do for you?";
+    private static final String WELCOME_MSG = "Hello! I'm Baron.Baron.\nWhat can I do for you?";
     private static final String GOODBYE_MSG = "Bye. Hope to see you again soon!";
 
     public static void showLine() {

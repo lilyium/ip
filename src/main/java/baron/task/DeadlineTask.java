@@ -1,3 +1,7 @@
+package baron.task;
+
+import baron.Parser;
+
 import java.time.LocalDateTime;
 
 public class DeadlineTask extends Task {
@@ -15,11 +19,11 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "D | " + super.toSaveFormat() + " | " + this.deadline.format(DefaultFormat.dateTimeFormat());
+        return "D | " + super.toSaveFormat() + " | " + this.deadline.format(Parser.DATETIMEFORMAT);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + this.deadline.format(DefaultFormat.dateTimeFormat()) + ")";
+        return "[D]" + super.toString() + "(by: " + this.deadline.format(Parser.DATETIMEFORMAT) + ")";
     }
 }

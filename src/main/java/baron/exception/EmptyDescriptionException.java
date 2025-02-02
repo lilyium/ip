@@ -1,3 +1,5 @@
+package baron.exception;
+
 public class EmptyDescriptionException extends BaronException {
     @Override
     public String toString() {

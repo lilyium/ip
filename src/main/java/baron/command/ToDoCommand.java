@@ -1,18 +1,22 @@
-import java.time.LocalDateTime;
+package baron.command;
+
+import baron.Storage;
+import baron.Ui;
+import baron.task.Task;
+import baron.task.ToDoTask;
+
 import java.util.ArrayList;
 
-public class DeadlineCommand extends Command {
+public class ToDoCommand extends Command {
     private final String taskName;
-    private final LocalDateTime deadline;
 
-    public DeadlineCommand(String taskName, LocalDateTime deadline) {
+    public ToDoCommand(String taskName) {
         this.taskName = taskName;
-        this.deadline = deadline;
     }
 
     @Override
     public void execute(ArrayList<Task> taskList, Storage storage) {
-        Task task = new DeadlineTask(this.taskName, this.deadline);
+        Task task = new ToDoTask(taskName);
         taskList.add(task);
         Ui.showAddTask(task);
         Ui.showNumberOfTasks(taskList);
