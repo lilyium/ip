@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private static final String TODO_TASK = "T";
     private static final String DEADLINE_TASK = "D";
     private static final String EVENT_TASK = "E";

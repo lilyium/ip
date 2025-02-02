@@ -1,17 +1,20 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class EventTask extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     public EventTask(String taskDescription) throws EmptyDescriptionException {
         super(EventTask.getTaskName(taskDescription));
-        this.startTime = EventTask.getStartTime(taskDescription);
-        this.endTime = EventTask.getEndTime(taskDescription);
+        this.startTime = Parser.parseDateTime(EventTask.getStartTime(taskDescription));
+        this.endTime = Parser.parseDateTime(EventTask.getEndTime(taskDescription));
     }
 
     public EventTask(boolean isDone, String taskName, String startTime, String endTime) throws EmptyDescriptionException {
         super(isDone, taskName);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = Parser.parseDateTime(startTime);
+        this.endTime = Parser.parseDateTime(endTime);
     }
 
 
@@ -33,11 +36,11 @@ public class EventTask extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "D | " + super.toSaveFormat() + " | " + this.startTime + " | " + this.endTime;
+        return "D | " + super.toSaveFormat() + " | " + this.startTime.format(DefaultFormat.dateTimeFormat()) + " | " + this.endTime.format(DefaultFormat.dateTimeFormat());
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.startTime + "to: " + this.endTime + ")";
+        return "[E]" + super.toString() + "(from: " + this.startTime.format(DefaultFormat.dateTimeFormat()) + "to: " + this.endTime.format(DefaultFormat.dateTimeFormat()) + ")";
     }
 }
