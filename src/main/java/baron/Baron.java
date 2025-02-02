@@ -1,3 +1,9 @@
+package baron;
+
+import baron.command.Command;
+import baron.exception.BaronException;
+import baron.task.Task;
+
 import java.util.ArrayList;
 
 public class Baron {

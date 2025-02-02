@@ -1,3 +1,5 @@
+package baron.exception;
+
 public class InvalidCommandException extends BaronException {
     @Override
     public String toString() {

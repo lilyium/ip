@@ -1,22 +1,28 @@
+package baron.command;
+
+import baron.Storage;
+import baron.Ui;
+import baron.exception.InvalidTaskIndexException;
+import baron.task.Task;
+
 import java.util.ArrayList;
 
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command {
     private final int index;
 
-    public DeleteCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
         try {
-            Task task = taskList.remove(this.index - 1);
-            Ui.showDeleteTask(task);
-            Ui.showNumberOfTasks(taskList);
+            Task task = taskList.get(this.index - 1);
+            task.unmark();
+            Ui.showUnmark(task);
             storage.saveTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
     }
-
 }

@@ -1,3 +1,7 @@
+package baron.task;
+
+import baron.Parser;
+
 import java.time.LocalDateTime;
 
 public class EventTask extends Task {
@@ -18,11 +22,11 @@ public class EventTask extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "D | " + super.toSaveFormat() + " | " + this.startTime.format(DefaultFormat.dateTimeFormat()) + " | " + this.endTime.format(DefaultFormat.dateTimeFormat());
+        return "D | " + super.toSaveFormat() + " | " + this.startTime.format(Parser.DATETIMEFORMAT) + " | " + this.endTime.format(Parser.DATETIMEFORMAT);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.startTime.format(DefaultFormat.dateTimeFormat()) + "to: " + this.endTime.format(DefaultFormat.dateTimeFormat()) + ")";
+        return "[E]" + super.toString() + "(from: " + this.startTime.format(Parser.DATETIMEFORMAT) + "to: " + this.endTime.format(Parser.DATETIMEFORMAT) + ")";
     }
 }
