@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,7 +17,8 @@ public class Baron {
     public static void main(String[] args) {
         System.out.println(hello);
         Scanner s = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        Save save = new Save("./data/duke.txt");
+        ArrayList<Task> taskList = save.loadSavedTasks();
         String input = s.nextLine();
 
         while (!input.equals("bye")) {
@@ -54,6 +58,7 @@ public class Baron {
                 System.out.println(e);
             }
             System.out.println(horizontalLine);
+            save.saveTasks(taskList);
             input = s.nextLine();
         }
 

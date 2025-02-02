@@ -8,6 +8,13 @@ public class EventTask extends Task {
         this.endTime = EventTask.getEndTime(taskDescription);
     }
 
+    public EventTask(boolean isDone, String taskName, String startTime, String endTime) throws EmptyDescriptionException {
+        super(isDone, taskName);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+
     private static String getTaskName(String taskDescription) {
         int idx = taskDescription.indexOf("/from");
         return taskDescription.substring(0, idx);
@@ -22,6 +29,11 @@ public class EventTask extends Task {
     private static String getEndTime(String taskDescription) {
         int idx = taskDescription.indexOf("/to");
         return taskDescription.substring(idx + 4);
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "D | " + super.toSaveFormat() + " | " + this.startTime + " | " + this.endTime;
     }
 
     @Override
