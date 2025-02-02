@@ -26,7 +26,7 @@ public class Baron {
                 c.execute(taskList, storage);
                 isExit = c.isExit();
             } catch (BaronException e) {
-                System.out.println(e.getMessage());
+                Ui.showError(e);
             } finally {
                 Ui.showLine();
             }

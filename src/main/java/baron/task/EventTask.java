@@ -27,6 +27,6 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.startTime.format(Parser.DATETIMEFORMAT) + "to: " + this.endTime.format(Parser.DATETIMEFORMAT) + ")";
+        return "[E]" + super.toString() + " (from: " + this.startTime.format(Parser.DATETIMEFORMAT) + "to: " + this.endTime.format(Parser.DATETIMEFORMAT) + ")";
     }
 }

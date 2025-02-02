@@ -1,8 +1,7 @@
 package baron.exception;
 
 public class InvalidCommandException extends BaronException {
-    @Override
-    public String toString() {
-        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public InvalidCommandException(String keyword) {
+        super("OOPS!!! " + keyword + " is not a recognised command.\nI'm sorry, but I don't know what that means :-(");
     }
 }
