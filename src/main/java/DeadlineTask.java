@@ -6,6 +6,11 @@ public class DeadlineTask extends Task {
         this.deadline = DeadlineTask.getDeadline(taskDescription);
     }
 
+    public DeadlineTask(boolean isDone, String taskName, String deadline) throws EmptyDescriptionException {
+        super(isDone, taskName);
+        this.deadline = deadline;
+    }
+
     private static String getTaskName(String taskDescription) {
         int idx = taskDescription.indexOf("/by");
         return taskDescription.substring(0, idx);
@@ -14,6 +19,11 @@ public class DeadlineTask extends Task {
     private static String getDeadline(String taskDescription) {
         int idx = taskDescription.indexOf("/by");
         return taskDescription.substring(idx + 4);
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "D | " + super.toSaveFormat() + " | " + this.deadline;
     }
 
     @Override
