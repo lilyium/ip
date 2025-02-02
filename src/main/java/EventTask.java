@@ -1,37 +1,19 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class EventTask extends Task {
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
-    public EventTask(String taskDescription) throws EmptyDescriptionException {
-        super(EventTask.getTaskName(taskDescription));
-        this.startTime = Parser.parseDateTime(EventTask.getStartTime(taskDescription));
-        this.endTime = Parser.parseDateTime(EventTask.getEndTime(taskDescription));
+    public EventTask(String taskName, LocalDateTime startTime, LocalDateTime endTime) {
+        super(taskName);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    public EventTask(boolean isDone, String taskName, String startTime, String endTime) throws EmptyDescriptionException {
+    public EventTask(boolean isDone, String taskName, LocalDateTime startTime, LocalDateTime endTime) {
         super(isDone, taskName);
-        this.startTime = Parser.parseDateTime(startTime);
-        this.endTime = Parser.parseDateTime(endTime);
-    }
-
-
-    private static String getTaskName(String taskDescription) {
-        int idx = taskDescription.indexOf("/from");
-        return taskDescription.substring(0, idx);
-    }
-
-    private static String getStartTime(String taskDescription) {
-        int idxStart = taskDescription.indexOf("/from");
-        int idxEnd = taskDescription.indexOf("/to");
-        return taskDescription.substring(idxStart + 6, idxEnd);
-    }
-
-    private static String getEndTime(String taskDescription) {
-        int idx = taskDescription.indexOf("/to");
-        return taskDescription.substring(idx + 4);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override

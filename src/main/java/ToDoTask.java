@@ -1,9 +1,9 @@
 public class ToDoTask extends Task {
-    public ToDoTask(String taskName) throws EmptyDescriptionException {
+    public ToDoTask(String taskName) {
         this(false, taskName);
     }
 
-    public ToDoTask(boolean isDone, String taskName) throws EmptyDescriptionException {
+    public ToDoTask(boolean isDone, String taskName) {
         super(isDone, taskName);
     }
 

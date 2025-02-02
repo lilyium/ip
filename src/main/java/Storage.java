@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,10 +7,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Save {
+public class Storage {
     private final Path filePath;
 
-    public Save(String filePath) throws InvalidPathException {
+    public Storage(String filePath) throws InvalidPathException {
         this.filePath = Paths.get(filePath);
     }
 
@@ -26,7 +24,7 @@ public class Save {
     }
 
     public ArrayList<Task> loadSavedTasks() {
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner s = new Scanner(filePath)) {
             while (s.hasNextLine()) {
                 String task = s.nextLine();
@@ -34,10 +32,10 @@ public class Save {
             }
         } catch (IOException e) {
             this.createFile();
-            return new ArrayList<Task>();
-        } catch (EmptyDescriptionException e) {
+            return new ArrayList<>();
+        } catch (BaronException e) {
             System.out.println("The saved tasks has been corrupted!");
-            return new ArrayList<Task>();
+            return new ArrayList<>();
         }
         return taskList;
     }
