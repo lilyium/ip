@@ -1,14 +1,16 @@
+import java.time.LocalDateTime;
+
 public class DeadlineTask extends Task {
-    private String deadline;
+    private LocalDateTime deadline;
 
     public DeadlineTask(String taskDescription) throws EmptyDescriptionException {
         super(DeadlineTask.getTaskName(taskDescription));
-        this.deadline = DeadlineTask.getDeadline(taskDescription);
+        this.deadline = Parser.parseDateTime(DeadlineTask.getDeadline(taskDescription));
     }
 
     public DeadlineTask(boolean isDone, String taskName, String deadline) throws EmptyDescriptionException {
         super(isDone, taskName);
-        this.deadline = deadline;
+        this.deadline = Parser.parseDateTime(deadline);
     }
 
     private static String getTaskName(String taskDescription) {
@@ -23,11 +25,11 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "D | " + super.toSaveFormat() + " | " + this.deadline;
+        return "D | " + super.toSaveFormat() + " | " + this.deadline.format(DefaultFormat.dateTimeFormat());
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + this.deadline + ")";
+        return "[D]" + super.toString() + "(by: " + this.deadline.format(DefaultFormat.dateTimeFormat()) + ")";
     }
 }
