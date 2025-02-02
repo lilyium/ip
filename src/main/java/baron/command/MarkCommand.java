@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
             Ui.showMark(task);
             storage.saveTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskIndexException();
+            throw new InvalidTaskIndexException(index);
         }
     }
 }

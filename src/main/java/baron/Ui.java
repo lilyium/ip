@@ -1,5 +1,7 @@
 package baron;
 
+import baron.exception.BaronException;
+import baron.exception.WrongUsageException;
 import baron.task.Task;
 
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String WELCOME_MSG = "Hello! I'm Baron.Baron.\nWhat can I do for you?";
+    private static final String WELCOME_MSG = "Hello! I'm Baron.\nWhat can I do for you?";
     private static final String GOODBYE_MSG = "Bye. Hope to see you again soon!";
 
     public static void showLine() {
@@ -58,6 +60,36 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(i + 1 + ". " + taskList.get(i));
+        }
+    }
+
+    public static void showError(BaronException e) {
+        if (e instanceof WrongUsageException wrongUsageException) {
+            switch(wrongUsageException.getCommandType()) {
+            case LIST:
+                System.out.println("Wrong usage of command! Try: list");
+                break;
+            case EXIT:
+                System.out.println("Wrong usage of command! Try: bye");
+                break;
+            case MARK:
+                System.out.println("Wrong usage of command! Try: mark [index]");
+                break;
+            case UNMARK:
+                System.out.println("Wrong usage of command! Try: mark [index]");
+                break;
+            case TODO:
+                System.out.println("Wrong usage of command! Try: todo [description]");
+                break;
+            case DEADLINE:
+                System.out.println("Wrong usage of command! Try: deadline [description] /by [deadline]");
+                break;
+            case EVENT:
+                System.out.println("Wrong usage of command! Try: event [description] /from [start time] /to [end time]");
+                break;
+            }
+        } else {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -8,7 +8,18 @@ import baron.task.Task;
 import java.util.ArrayList;
 
 public abstract class Command {
+    public enum CommandType {
+        LIST,
+        EXIT,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
     public static final Command EMPTY_COMMAND = new EmptyCommand();
+    public static final Command LIST_COMMAND = new ListCommand();
     public static final Command EXIT_COMMAND = new ExitCommand();
 
     public abstract void execute(ArrayList<Task> taskList, Storage storage) throws BaronException;
@@ -30,6 +41,13 @@ public abstract class Command {
         @Override
         public void execute(ArrayList<Task> taskList, Storage storage) {
 
+        }
+    }
+
+    public static class ListCommand extends Command {
+        @Override
+        public void execute(ArrayList<Task> taskList, Storage storage) {
+            Ui.showTasks(taskList);
         }
     }
 

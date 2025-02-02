@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             Ui.showNumberOfTasks(taskList);
             storage.saveTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskIndexException();
+            throw new InvalidTaskIndexException(index);
         }
     }
 

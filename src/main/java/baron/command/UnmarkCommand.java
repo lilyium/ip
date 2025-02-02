@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
             Ui.showUnmark(task);
             storage.saveTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskIndexException();
+            throw new InvalidTaskIndexException(index);
         }
     }
 }

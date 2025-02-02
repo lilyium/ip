@@ -1,13 +1,14 @@
 package baron;
 
 import baron.command.Command;
+import baron.command.Command.CommandType;
 import baron.command.DeadlineCommand;
 import baron.command.DeleteCommand;
 import baron.command.EventCommand;
-import baron.command.ListCommand;
 import baron.command.MarkCommand;
 import baron.command.ToDoCommand;
 import baron.command.UnmarkCommand;
+import baron.exception.CorruptedSaveException;
 import baron.exception.EmptyDescriptionException;
 import baron.exception.InvalidCommandException;
 import baron.exception.InvalidDateTimeException;
@@ -34,21 +35,39 @@ public class Parser {
 
     public static Command parseCommand(String input) throws EmptyDescriptionException, InvalidCommandException, WrongUsageException, ReservedCharacterException, InvalidDateTimeException {
         String trimmed_input = input.trim();
-        if (trimmed_input.equals("list")) {
-            return new ListCommand();
-        } else if (trimmed_input.equals("bye")) {
-            return Command.getExitCommand();
-        }
-
         String[] split_input = trimmed_input.split(" ", 2);
         if (split_input.length == 0) {
-            return Command.getEmptyCommand();
+            return Command.EMPTY_COMMAND;
         } else if (split_input.length == 1) {
-            throw new EmptyDescriptionException();
+            String keyword = split_input[0];
+            switch (keyword) {
+            case "list":
+                return Command.LIST_COMMAND;
+            case "bye":
+                return Command.EXIT_COMMAND;
+            case "mark":
+                throw new WrongUsageException(CommandType.MARK);
+            case "unmark":
+                throw new WrongUsageException(CommandType.UNMARK);
+            case "todo":
+                throw new WrongUsageException(CommandType.TODO);
+            case "deadline":
+                throw new WrongUsageException(CommandType.DEADLINE);
+            case "event":
+                throw new WrongUsageException(CommandType.EVENT);
+            case "delete":
+                throw new WrongUsageException(CommandType.DELETE);
+            default:
+                throw new InvalidCommandException(keyword);
+            }
         } else {
             String keyword = split_input[0];
             String details = split_input[1].trim();
             switch (keyword) {
+            case "list":
+                throw new WrongUsageException(CommandType.LIST);
+            case "bye":
+                throw new WrongUsageException(CommandType.EXIT);
             case "mark":
                 return parseMarkCommand(details);
             case "unmark":
@@ -62,7 +81,7 @@ public class Parser {
             case "delete":
                 return parseDeleteCommand(details);
             default:
-                throw new InvalidCommandException();
+                throw new InvalidCommandException(keyword);
             }
         }
     }
@@ -71,7 +90,7 @@ public class Parser {
         try {
             return new MarkCommand(Integer.parseUnsignedInt(details));
         } catch (NumberFormatException e) {
-            throw new WrongUsageException();
+            throw new WrongUsageException(CommandType.MARK);
         }
     }
 
@@ -79,7 +98,7 @@ public class Parser {
         try {
             return new UnmarkCommand(Integer.parseUnsignedInt(details));
         } catch (NumberFormatException e) {
-            throw new WrongUsageException();
+            throw new WrongUsageException(CommandType.UNMARK);
         }
     }
 
@@ -91,7 +110,7 @@ public class Parser {
     public static DeadlineCommand parseDeadlineCommand(String details) throws WrongUsageException, ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
         int idx = details.indexOf("/by");
         if (idx == -1) {
-            throw new WrongUsageException();
+            throw new WrongUsageException(CommandType.DEADLINE);
         }
         String taskName = details.substring(0, idx).trim();
         String deadline = details.substring(idx + 4).trim();
@@ -107,7 +126,7 @@ public class Parser {
         int idx1 = details.indexOf("/from");
         int idx2 = details.indexOf("/to");
         if (idx1 == -1 || idx2 == -1) {
-            throw new WrongUsageException();
+            throw new WrongUsageException(CommandType.EVENT);
         }
         String taskName = details.substring(0, idx1).trim();
         String startTime = details.substring(idx1 + 6, idx2).trim();
@@ -125,27 +144,31 @@ public class Parser {
         try {
             return new DeleteCommand(Integer.parseUnsignedInt(details));
         } catch (NumberFormatException e) {
-            throw new WrongUsageException();
+            throw new WrongUsageException(CommandType.DELETE);
         }
     }
 
     public static void checkReservedCharacters(String details) throws ReservedCharacterException {
-        if (details.contains("|") || details.contains("/")) {
+        if (details.contains("|")) {
             throw new ReservedCharacterException();
         }
     }
 
-    public static Task parseSavedTask(String savedTask) throws EmptyDescriptionException, InvalidDateTimeException {
+    public static Task parseSavedTask(String savedTask) throws EmptyDescriptionException, InvalidDateTimeException, CorruptedSaveException {
         String[] splitSavedTask = savedTask.split(DELIMITER);
-        switch (splitSavedTask[0]) {
-        case TODO_TASK:
-            return new ToDoTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2]);
-        case DEADLINE_TASK:
-            return new DeadlineTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2], parseDateTime(splitSavedTask[3]));
-        case EVENT_TASK:
-            return new EventTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2], parseDateTime(splitSavedTask[3]), parseDateTime(splitSavedTask[3]));
-        default:
-            throw new EmptyDescriptionException();
+        try {
+            switch (splitSavedTask[0]) {
+            case TODO_TASK:
+                return new ToDoTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2]);
+            case DEADLINE_TASK:
+                return new DeadlineTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2], parseDateTime(splitSavedTask[3]));
+            case EVENT_TASK:
+                return new EventTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2], parseDateTime(splitSavedTask[3]), parseDateTime(splitSavedTask[3]));
+            default:
+                throw new CorruptedSaveException();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new CorruptedSaveException();
         }
     }
 
@@ -166,7 +189,7 @@ public class Parser {
         try {
             return LocalDateTime.parse(dateTimeString, DATETIMEFORMAT);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException();
+            throw new InvalidDateTimeException(dateTimeString);
         }
     }
 }
