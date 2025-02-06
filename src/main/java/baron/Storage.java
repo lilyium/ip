@@ -19,6 +19,9 @@ public class Storage {
         this.filePath = Paths.get(filePath);
     }
 
+    /**
+     * Creates a save file if it does not already exist
+     */
     private void createFile() {
         try {
             Files.createDirectories(this.filePath.getParent());
@@ -28,6 +31,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads a file containing saved tasks and returns a list of tasks
+     *
+     * @return A list of tasks corresponding to the save file
+     */
     public ArrayList<Task> loadSavedTasks() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner s = new Scanner(filePath)) {
@@ -45,6 +53,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves a list of tasks to the save file
+     *
+     * @param taskList A list of tasks to be saved to a save file
+     */
     public void saveTasks(ArrayList<Task> taskList) {
         try (FileWriter fw = new FileWriter(filePath.toFile())) {
             for (Task task : taskList) {

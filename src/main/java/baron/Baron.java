@@ -15,6 +15,9 @@ public class Baron {
         this.taskList = storage.loadSavedTasks();
     }
 
+    /**
+     * Runs the application, printing a welcome message and handling user input
+     */
     public void run() {
         Ui.showWelcome();
         boolean isExit = false;
