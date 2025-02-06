@@ -5,6 +5,7 @@ import baron.command.Command.CommandType;
 import baron.command.DeadlineCommand;
 import baron.command.DeleteCommand;
 import baron.command.EventCommand;
+import baron.command.FindCommand;
 import baron.command.MarkCommand;
 import baron.command.ToDoCommand;
 import baron.command.UnmarkCommand;
@@ -57,6 +58,8 @@ public class Parser {
                 throw new WrongUsageException(CommandType.EVENT);
             case "delete":
                 throw new WrongUsageException(CommandType.DELETE);
+            case "find":
+                throw new WrongUsageException(CommandType.FIND);
             default:
                 throw new InvalidCommandException(keyword);
             }
@@ -80,6 +83,8 @@ public class Parser {
                 return parseEventCommand(details);
             case "delete":
                 return parseDeleteCommand(details);
+            case "find":
+                return parseFindCommand(details);
             default:
                 throw new InvalidCommandException(keyword);
             }
@@ -146,6 +151,11 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new WrongUsageException(CommandType.DELETE);
         }
+    }
+
+    private static FindCommand parseFindCommand(String details) throws ReservedCharacterException {
+        checkReservedCharacters(details);
+        return new FindCommand(details);
     }
 
     private static void checkReservedCharacters(String details) throws ReservedCharacterException {
