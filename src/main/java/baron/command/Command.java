@@ -2,8 +2,8 @@ package baron.command;
 
 import java.util.ArrayList;
 
-import baron.task.Task;
 import baron.exception.BaronException;
+import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
@@ -45,7 +45,7 @@ public abstract class Command {
         }
     }
 
-    public static class ListCommand extends Command {
+    private static class ListCommand extends Command {
         @Override
         public void execute(ArrayList<Task> taskList, Storage storage) {
             Ui.showTasks(taskList);

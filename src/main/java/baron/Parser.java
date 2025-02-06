@@ -1,5 +1,11 @@
 package baron;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+
 import baron.command.Command;
 import baron.command.Command.CommandType;
 import baron.command.DeadlineCommand;
@@ -21,38 +27,34 @@ import baron.task.EventTask;
 import baron.task.Task;
 import baron.task.ToDoTask;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
-
 public class Parser {
+    public static final DateTimeFormatter DATETIMEFORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final String DELIMITER = " \\| ";
+
     private static final String TODO_TASK = "T";
     private static final String DEADLINE_TASK = "D";
     private static final String EVENT_TASK = "E";
 
-    private static final String DELIMITER = " \\| ";
-    public static final DateTimeFormatter DATETIMEFORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Parses the user input and returns a corresponding Command object
      *
      * @param input The user input
      * @return Command object corresponding to the user input
-     * @throws EmptyDescriptionException If user input is empty
-     * @throws InvalidCommandException If the command given is not recognised
-     * @throws WrongUsageException If a command has been used wrongly
+     * @throws EmptyDescriptionException  If user input is empty
+     * @throws InvalidCommandException    If the command given is not recognised
+     * @throws WrongUsageException        If a command has been used wrongly
      * @throws ReservedCharacterException If reserved characters such as | are used
-     * @throws InvalidDateTimeException If date given cannot be parsed
+     * @throws InvalidDateTimeException   If date given cannot be parsed
      */
-    public static Command parseCommand(String input) throws EmptyDescriptionException, InvalidCommandException, WrongUsageException, ReservedCharacterException, InvalidDateTimeException {
-        String trimmed_input = input.trim();
-        String[] split_input = trimmed_input.split(" ", 2);
-        if (trimmed_input.isEmpty()) {
+    public static Command parseCommand(String input) throws EmptyDescriptionException, InvalidCommandException,
+            WrongUsageException, ReservedCharacterException, InvalidDateTimeException {
+        String trimmedInput = input.trim();
+        String[] splitInput = trimmedInput.split(" ", 2);
+        if (trimmedInput.isEmpty()) {
             return Command.EMPTY_COMMAND;
-        } else if (split_input.length == 1) {
-            String keyword = split_input[0];
+        } else if (splitInput.length == 1) {
+            String keyword = splitInput[0];
             switch (keyword) {
             case "list":
                 return Command.LIST_COMMAND;
@@ -76,8 +78,8 @@ public class Parser {
                 throw new InvalidCommandException(keyword);
             }
         } else {
-            String keyword = split_input[0];
-            String details = split_input[1].trim();
+            String keyword = splitInput[0];
+            String details = splitInput[1].trim();
             switch (keyword) {
             case "list":
                 throw new WrongUsageException(CommandType.LIST);
@@ -124,7 +126,8 @@ public class Parser {
         return new ToDoCommand(details);
     }
 
-    private static DeadlineCommand parseDeadlineCommand(String details) throws WrongUsageException, ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
+    private static DeadlineCommand parseDeadlineCommand(String details) throws WrongUsageException,
+            ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
         int idx = details.indexOf("/by");
         if (idx == -1) {
             throw new WrongUsageException(CommandType.DEADLINE);
@@ -139,7 +142,8 @@ public class Parser {
         return new DeadlineCommand(taskName, parseDateTime(deadline));
     }
 
-    private static EventCommand parseEventCommand(String details) throws WrongUsageException, ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
+    private static EventCommand parseEventCommand(String details) throws WrongUsageException,
+            ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
         int idx1 = details.indexOf("/from");
         int idx2 = details.indexOf("/to");
         if (idx1 == -1 || idx2 == -1) {
@@ -190,9 +194,11 @@ public class Parser {
             case TODO_TASK:
                 return new ToDoTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2]);
             case DEADLINE_TASK:
-                return new DeadlineTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2], parseDateTime(splitSavedTask[3]));
+                return new DeadlineTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2],
+                        parseDateTime(splitSavedTask[3]));
             case EVENT_TASK:
-                return new EventTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2], parseDateTime(splitSavedTask[3]), parseDateTime(splitSavedTask[3]));
+                return new EventTask(Boolean.parseBoolean(splitSavedTask[1]), splitSavedTask[2],
+                        parseDateTime(splitSavedTask[3]), parseDateTime(splitSavedTask[3]));
             default:
                 throw new CorruptedSaveException();
             }
@@ -214,8 +220,8 @@ public class Parser {
                         "[yyyy-M-d]" + "[d-M-yyyy]" + "[d-M]" + "[yyyy/M/d]" + "[d/M/yyyy]" + "[d/M]"
                                 + "[d MMM yyyy]" + "[d MMM]" + "[MMM d yyyy]" + "[MMM d]"
                 ))
-                .appendOptional(DateTimeFormatter.ofPattern(" " +
-                        "[HHmm]" + "[HH:mm]"
+                .appendOptional(DateTimeFormatter.ofPattern(" "
+                        + "[HHmm]" + "[HH:mm]"
                 ))
                 .parseCaseInsensitive()
                 .parseDefaulting(ChronoField.YEAR_OF_ERA, LocalDateTime.now().getYear())
