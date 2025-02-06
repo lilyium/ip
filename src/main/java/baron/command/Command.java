@@ -1,11 +1,11 @@
 package baron.command;
 
+import java.util.ArrayList;
+
+import baron.task.Task;
+import baron.exception.BaronException;
 import baron.Storage;
 import baron.Ui;
-import baron.exception.BaronException;
-import baron.task.Task;
-
-import java.util.ArrayList;
 
 public abstract class Command {
     public enum CommandType {
@@ -18,6 +18,7 @@ public abstract class Command {
         EVENT,
         DELETE
     }
+
     public static final Command EMPTY_COMMAND = new EmptyCommand();
     public static final Command LIST_COMMAND = new ListCommand();
     public static final Command EXIT_COMMAND = new ExitCommand();
@@ -38,7 +39,7 @@ public abstract class Command {
         }
 
         @Override
-        public boolean equals (Object o) {
+        public boolean equals(Object o) {
             return this == o;
         }
     }
@@ -50,7 +51,7 @@ public abstract class Command {
         }
 
         @Override
-        public boolean equals (Object o) {
+        public boolean equals(Object o) {
             return this == o;
         }
     }
@@ -68,7 +69,7 @@ public abstract class Command {
         }
 
         @Override
-        public boolean equals (Object o) {
+        public boolean equals(Object o) {
             return this == o;
         }
     }

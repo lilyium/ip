@@ -1,12 +1,12 @@
 package baron.command;
 
-import baron.Storage;
-import baron.Ui;
-import baron.task.EventTask;
-import baron.task.Task;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import baron.task.EventTask;
+import baron.task.Task;
+import baron.Storage;
+import baron.Ui;
 
 public class EventCommand extends Command {
     private final String taskName;
