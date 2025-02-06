@@ -1,11 +1,11 @@
 package baron.command;
 
-import baron.Storage;
-import baron.Ui;
+import java.util.ArrayList;
+
 import baron.task.Task;
 import baron.task.ToDoTask;
-
-import java.util.ArrayList;
+import baron.Storage;
+import baron.Ui;
 
 public class ToDoCommand extends Command {
     private final String taskName;

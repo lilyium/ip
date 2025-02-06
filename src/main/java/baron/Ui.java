@@ -1,11 +1,11 @@
 package baron;
 
-import baron.exception.BaronException;
-import baron.exception.WrongUsageException;
-import baron.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import baron.task.Task;
+import baron.exception.BaronException;
+import baron.exception.WrongUsageException;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -114,7 +114,7 @@ public class Ui {
      */
     public static void showError(BaronException e) {
         if (e instanceof WrongUsageException wrongUsageException) {
-            switch(wrongUsageException.getCommandType()) {
+            switch (wrongUsageException.getCommandType()) {
             case LIST:
                 System.out.println("Wrong usage of command! Try: list");
                 break;

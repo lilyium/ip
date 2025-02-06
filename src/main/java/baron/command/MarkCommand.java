@@ -1,11 +1,11 @@
 package baron.command;
 
+import java.util.ArrayList;
+
+import baron.task.Task;
+import baron.exception.InvalidTaskIndexException;
 import baron.Storage;
 import baron.Ui;
-import baron.exception.InvalidTaskIndexException;
-import baron.task.Task;
-
-import java.util.ArrayList;
 
 public class MarkCommand extends Command {
     private final int index;

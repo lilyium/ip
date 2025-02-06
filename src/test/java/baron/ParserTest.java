@@ -1,19 +1,20 @@
 package baron;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDateTime;
+
 import baron.command.Command;
 import baron.command.MarkCommand;
 import baron.command.ToDoCommand;
 import baron.command.UnmarkCommand;
 import baron.exception.BaronException;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import baron.exception.InvalidDateTimeException;
 import baron.exception.WrongUsageException;
-import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import org.junit.jupiter.api.Test;
 
 
 public class ParserTest {
@@ -38,7 +39,7 @@ public class ParserTest {
     @Test
     void parseCommand_incorrectListInput_exceptionThrown() {
         WrongUsageException e = assertThrows(WrongUsageException.class,
-                () -> Parser.parseCommand("list 2"),"\"list 2\" does not return a WrongUsageException");
+                () -> Parser.parseCommand("list 2"), "\"list 2\" does not return a WrongUsageException");
         assertEquals(new WrongUsageException(Command.CommandType.LIST), e, "\"list 2\" does not return the corresponding WrongUsageException");
     }
 
@@ -54,7 +55,7 @@ public class ParserTest {
     @Test
     void parseCommand_incorrectExitInput_exceptionThrown() {
         WrongUsageException e = assertThrows(WrongUsageException.class,
-                () -> Parser.parseCommand("bye now"),"\"bye now\" does not return a WrongUsageException");
+                () -> Parser.parseCommand("bye now"), "\"bye now\" does not return a WrongUsageException");
         assertEquals(new WrongUsageException(Command.CommandType.EXIT), e, "\"bye now\" does not return the corresponding WrongUsageException");
     }
 
@@ -70,7 +71,7 @@ public class ParserTest {
     @Test
     void parseCommand_incorrectMarkInput_exceptionThrown() {
         WrongUsageException e = assertThrows(WrongUsageException.class,
-                () -> Parser.parseCommand("mark"),"\"mark\" does not return a WrongUsageException");
+                () -> Parser.parseCommand("mark"), "\"mark\" does not return a WrongUsageException");
         assertEquals(new WrongUsageException(Command.CommandType.MARK), e, "\"mark\" does not return the corresponding WrongUsageException");
     }
 
@@ -86,7 +87,7 @@ public class ParserTest {
     @Test
     void parseCommand_incorrectUnmarkInput_exceptionThrown() {
         WrongUsageException e = assertThrows(WrongUsageException.class,
-                () -> Parser.parseCommand("unmark"),"\"unmark\" does not return a WrongUsageException");
+                () -> Parser.parseCommand("unmark"), "\"unmark\" does not return a WrongUsageException");
         assertEquals(new WrongUsageException(Command.CommandType.UNMARK), e, "\"unmark\" does not return the corresponding WrongUsageException");
     }
 
@@ -102,7 +103,7 @@ public class ParserTest {
     @Test
     void parseCommand_incorrectTodoInput_exceptionThrown() {
         WrongUsageException e = assertThrows(WrongUsageException.class,
-                () -> Parser.parseCommand("todo"),"\"todo\" does not return a WrongUsageException");
+                () -> Parser.parseCommand("todo"), "\"todo\" does not return a WrongUsageException");
         assertEquals(new WrongUsageException(Command.CommandType.TODO), e, "\"todo\" does not return the corresponding WrongUsageException");
     }
 
@@ -140,6 +141,6 @@ public class ParserTest {
     void parseDateTime_invalidInput_exceptionThrown() {
         String testInput = "Later";
         InvalidDateTimeException e = assertThrows(InvalidDateTimeException.class,
-                () -> Parser.parseDateTime(testInput),"\"" + testInput + "\" does not return a WrongUsageException");
+                () -> Parser.parseDateTime(testInput), "\"" + testInput + "\" does not return a WrongUsageException");
     }
 }
