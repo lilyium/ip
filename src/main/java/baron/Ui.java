@@ -3,9 +3,9 @@ package baron;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import baron.task.Task;
 import baron.exception.BaronException;
 import baron.exception.WrongUsageException;
+import baron.task.Task;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";

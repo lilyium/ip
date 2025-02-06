@@ -2,8 +2,8 @@ package baron.command;
 
 import java.util.ArrayList;
 
-import baron.task.Task;
 import baron.exception.InvalidTaskIndexException;
+import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 

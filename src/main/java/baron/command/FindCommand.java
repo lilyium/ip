@@ -2,9 +2,9 @@ package baron.command;
 
 import java.util.ArrayList;
 
+import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
-import baron.task.Task;
 
 public class FindCommand extends Command {
     private final String searchTerm;
@@ -36,5 +36,4 @@ public class FindCommand extends Command {
             return false;
         }
     }
-
 }

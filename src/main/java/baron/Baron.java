@@ -3,8 +3,8 @@ package baron;
 import java.util.ArrayList;
 
 import baron.command.Command;
-import baron.task.Task;
 import baron.exception.BaronException;
+import baron.task.Task;
 
 public class Baron {
     private final Storage storage;

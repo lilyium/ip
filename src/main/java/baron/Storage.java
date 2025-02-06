@@ -9,8 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import baron.task.Task;
 import baron.exception.BaronException;
+import baron.task.Task;
 
 public class Storage {
     private final Path filePath;
