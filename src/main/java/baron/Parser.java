@@ -8,6 +8,7 @@ import baron.command.EventCommand;
 import baron.command.MarkCommand;
 import baron.command.ToDoCommand;
 import baron.command.UnmarkCommand;
+import baron.exception.BaronException;
 import baron.exception.CorruptedSaveException;
 import baron.exception.EmptyDescriptionException;
 import baron.exception.InvalidCommandException;
@@ -33,6 +34,17 @@ public class Parser {
     private static final String DELIMITER = " \\| ";
     public static final DateTimeFormatter DATETIMEFORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Parses the user input and returns a corresponding Command object
+     *
+     * @param input The user input
+     * @return Command object corresponding to the user input
+     * @throws EmptyDescriptionException If user input is empty
+     * @throws InvalidCommandException If the command given is not recognised
+     * @throws WrongUsageException If a command has been used wrongly
+     * @throws ReservedCharacterException If reserved characters such as | are used
+     * @throws InvalidDateTimeException If date given cannot be parsed
+     */
     public static Command parseCommand(String input) throws EmptyDescriptionException, InvalidCommandException, WrongUsageException, ReservedCharacterException, InvalidDateTimeException {
         String trimmed_input = input.trim();
         String[] split_input = trimmed_input.split(" ", 2);
@@ -154,7 +166,14 @@ public class Parser {
         }
     }
 
-    public static Task parseSavedTask(String savedTask) throws EmptyDescriptionException, InvalidDateTimeException, CorruptedSaveException {
+    /**
+     * Parses a string representation of a saved task and returns a corresponding Task object
+     *
+     * @param savedTask String representation of a saved task
+     * @return Task object corresponding to savedTask
+     * @throws CorruptedSaveException If savedTask is not of the correct format
+     */
+    public static Task parseSavedTask(String savedTask) throws CorruptedSaveException {
         String[] splitSavedTask = savedTask.split(DELIMITER);
         try {
             switch (splitSavedTask[0]) {
@@ -167,11 +186,18 @@ public class Parser {
             default:
                 throw new CorruptedSaveException();
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (BaronException | ArrayIndexOutOfBoundsException e) {
             throw new CorruptedSaveException();
         }
     }
 
+    /**
+     * Parses a string representation of a date and time and returns a corresponding LocalDateTime object
+     *
+     * @param dateTimeString String representation of a date and time
+     * @return LocalDateTime object corresponding to dateTimeString
+     * @throws InvalidDateTimeException If dateTimeString is not of the correct format
+     */
     public static LocalDateTime parseDateTime(String dateTimeString) throws InvalidDateTimeException {
         DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
                 .append(DateTimeFormatter.ofPattern(
