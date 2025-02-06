@@ -28,19 +28,18 @@ public abstract class Command {
         return false;
     }
 
-    public static Command getEmptyCommand() {
-        return Command.EMPTY_COMMAND;
-    }
-
-    public static Command getExitCommand() {
-        return Command.EXIT_COMMAND;
-    }
-
+    @Override
+    public abstract boolean equals(Object o);
 
     private static class EmptyCommand extends Command {
         @Override
         public void execute(ArrayList<Task> taskList, Storage storage) {
 
+        }
+
+        @Override
+        public boolean equals (Object o) {
+            return this == o;
         }
     }
 
@@ -48,6 +47,11 @@ public abstract class Command {
         @Override
         public void execute(ArrayList<Task> taskList, Storage storage) {
             Ui.showTasks(taskList);
+        }
+
+        @Override
+        public boolean equals (Object o) {
+            return this == o;
         }
     }
 
@@ -57,9 +61,15 @@ public abstract class Command {
             Ui.showGoodbye();
         }
 
+
         @Override
         public boolean isExit() {
             return true;
+        }
+
+        @Override
+        public boolean equals (Object o) {
+            return this == o;
         }
     }
 }

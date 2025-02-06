@@ -36,7 +36,7 @@ public class Parser {
     public static Command parseCommand(String input) throws EmptyDescriptionException, InvalidCommandException, WrongUsageException, ReservedCharacterException, InvalidDateTimeException {
         String trimmed_input = input.trim();
         String[] split_input = trimmed_input.split(" ", 2);
-        if (split_input.length == 0) {
+        if (trimmed_input.isEmpty()) {
             return Command.EMPTY_COMMAND;
         } else if (split_input.length == 1) {
             String keyword = split_input[0];
@@ -102,12 +102,12 @@ public class Parser {
         }
     }
 
-    public static ToDoCommand parseToDoCommand(String details) throws ReservedCharacterException {
+    private static ToDoCommand parseToDoCommand(String details) throws ReservedCharacterException {
         checkReservedCharacters(details);
         return new ToDoCommand(details);
     }
 
-    public static DeadlineCommand parseDeadlineCommand(String details) throws WrongUsageException, ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
+    private static DeadlineCommand parseDeadlineCommand(String details) throws WrongUsageException, ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
         int idx = details.indexOf("/by");
         if (idx == -1) {
             throw new WrongUsageException(CommandType.DEADLINE);
@@ -122,7 +122,7 @@ public class Parser {
         return new DeadlineCommand(taskName, parseDateTime(deadline));
     }
 
-    public static EventCommand parseEventCommand(String details) throws WrongUsageException, ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
+    private static EventCommand parseEventCommand(String details) throws WrongUsageException, ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
         int idx1 = details.indexOf("/from");
         int idx2 = details.indexOf("/to");
         if (idx1 == -1 || idx2 == -1) {
@@ -140,7 +140,7 @@ public class Parser {
         return new EventCommand(taskName, parseDateTime(startTime), parseDateTime(endTime));
     }
 
-    public static DeleteCommand parseDeleteCommand(String details) throws WrongUsageException {
+    private static DeleteCommand parseDeleteCommand(String details) throws WrongUsageException {
         try {
             return new DeleteCommand(Integer.parseUnsignedInt(details));
         } catch (NumberFormatException e) {
@@ -148,7 +148,7 @@ public class Parser {
         }
     }
 
-    public static void checkReservedCharacters(String details) throws ReservedCharacterException {
+    private static void checkReservedCharacters(String details) throws ReservedCharacterException {
         if (details.contains("|")) {
             throw new ReservedCharacterException();
         }
@@ -173,7 +173,7 @@ public class Parser {
     }
 
     public static LocalDateTime parseDateTime(String dateTimeString) throws InvalidDateTimeException {
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+        DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
                 .append(DateTimeFormatter.ofPattern(
                         "[yyyy-M-d]" + "[d-M-yyyy]" + "[d-M]" + "[yyyy/M/d]" + "[d/M/yyyy]" + "[d/M]"
                                 + "[d MMM yyyy]" + "[d MMM]" + "[MMM d yyyy]" + "[MMM d]"
@@ -187,7 +187,7 @@ public class Parser {
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 59)
                 .toFormatter();
         try {
-            return LocalDateTime.parse(dateTimeString, DATETIMEFORMAT);
+            return LocalDateTime.parse(dateTimeString, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException(dateTimeString);
         }

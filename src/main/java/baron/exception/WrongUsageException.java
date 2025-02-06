@@ -12,4 +12,17 @@ public class WrongUsageException extends BaronException {
     public CommandType getCommandType() {
         return this.commandType;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof WrongUsageException other) {
+            return this.commandType.equals(other.commandType);
+        } else {
+            return false;
+        }
+    }
 }

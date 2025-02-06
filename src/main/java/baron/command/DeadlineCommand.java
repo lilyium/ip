@@ -2,6 +2,7 @@ package baron.command;
 
 import baron.Storage;
 import baron.Ui;
+import baron.exception.WrongUsageException;
 import baron.task.DeadlineTask;
 import baron.task.Task;
 
@@ -24,5 +25,18 @@ public class DeadlineCommand extends Command {
         Ui.showAddTask(task);
         Ui.showNumberOfTasks(taskList);
         storage.saveTasks(taskList);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof DeadlineCommand other) {
+            return this.taskName.equals(other.taskName) && this.deadline.equals(other.deadline);
+        } else {
+            return false;
+        }
     }
 }

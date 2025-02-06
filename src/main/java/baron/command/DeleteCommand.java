@@ -26,4 +26,17 @@ public class DeleteCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof DeleteCommand other) {
+            return this.index == other.index;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -27,4 +27,17 @@ public class EventCommand extends Command {
         Ui.showNumberOfTasks(taskList);
         storage.saveTasks(taskList);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof EventCommand other) {
+            return this.taskName.equals(other.taskName) && this.startTime.equals(other.startTime) && this.endTime.equals(other.endTime);
+        } else {
+            return false;
+        }
+    }
 }
