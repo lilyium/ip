@@ -16,7 +16,8 @@ public abstract class Command {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
 
     public static final Command EMPTY_COMMAND = new EmptyCommand();

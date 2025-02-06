@@ -108,6 +108,18 @@ public class Ui {
     }
 
     /**
+     * Iterates through a list of tasks that match a search term and prints out its details
+     *
+     * @param matchList List of tasks that match a search term
+     */
+    public static void showMatchingTasks(ArrayList<Task> matchList) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchList.size(); i++) {
+            System.out.println(i + 1 + ". " + matchList.get(i));
+        }
+    }
+
+    /**
      * Prints out an error message corresponding to the exception thrown
      *
      * @param e An exception thrown by the application
