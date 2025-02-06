@@ -76,7 +76,7 @@ public class Ui {
                 System.out.println("Wrong usage of command! Try: mark [index]");
                 break;
             case UNMARK:
-                System.out.println("Wrong usage of command! Try: mark [index]");
+                System.out.println("Wrong usage of command! Try: unmark [index]");
                 break;
             case TODO:
                 System.out.println("Wrong usage of command! Try: todo [description]");

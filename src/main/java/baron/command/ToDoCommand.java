@@ -22,4 +22,17 @@ public class ToDoCommand extends Command {
         Ui.showNumberOfTasks(taskList);
         storage.saveTasks(taskList);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof ToDoCommand other) {
+            return this.taskName.equals(other.taskName);
+        } else {
+            return false;
+        }
+    }
 }

@@ -25,4 +25,17 @@ public class UnmarkCommand extends Command {
             throw new InvalidTaskIndexException(index);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof UnmarkCommand other) {
+            return this.index == other.index;
+        } else {
+            return false;
+        }
+    }
 }
