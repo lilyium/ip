@@ -8,16 +8,8 @@ import baron.exception.WrongUsageException;
 import baron.task.Task;
 
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String WELCOME_MSG = "Hello! I'm Baron.\nWhat can I do for you?";
     private static final String GOODBYE_MSG = "Bye. Hope to see you again soon!";
-
-    /**
-     * Prints a horizontal line
-     */
-    public static void showLine() {
-        System.out.println(HORIZONTAL_LINE);
-    }
 
     /**
      * Returns a welcome message
@@ -31,16 +23,6 @@ public class Ui {
      */
     public static String showGoodbye() {
         return GOODBYE_MSG;
-    }
-
-    /**
-     * Reads the user input
-     *
-     * @return The user input
-     */
-    public static String readCommand() {
-        Scanner s = new Scanner(System.in);
-        return s.nextLine();
     }
 
     /**
