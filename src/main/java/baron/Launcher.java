@@ -1,3 +1,5 @@
+package baron;
+
 import javafx.application.Application;
 
 /**
