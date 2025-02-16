@@ -1,5 +1,7 @@
 package baron;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for the main GUI.
  */
@@ -49,6 +53,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBaronDialog(response, baronImage)
         );
+        if (response.equals(Ui.showGoodbye())) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
         userInput.clear();
     }
 }
