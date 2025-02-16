@@ -24,7 +24,7 @@ public abstract class Command {
     public static final Command LIST_COMMAND = new ListCommand();
     public static final Command EXIT_COMMAND = new ExitCommand();
 
-    public abstract void execute(ArrayList<Task> taskList, Storage storage) throws BaronException;
+    public abstract String execute(ArrayList<Task> taskList, Storage storage) throws BaronException;
 
     public boolean isExit() {
         return false;
@@ -35,8 +35,8 @@ public abstract class Command {
 
     private static class EmptyCommand extends Command {
         @Override
-        public void execute(ArrayList<Task> taskList, Storage storage) {
-
+        public String execute(ArrayList<Task> taskList, Storage storage) {
+            return "Meow, say something!";
         }
 
         @Override
@@ -47,8 +47,8 @@ public abstract class Command {
 
     private static class ListCommand extends Command {
         @Override
-        public void execute(ArrayList<Task> taskList, Storage storage) {
-            Ui.showTasks(taskList);
+        public String execute(ArrayList<Task> taskList, Storage storage) {
+            return Ui.showTasks(taskList);
         }
 
         @Override
@@ -59,8 +59,8 @@ public abstract class Command {
 
     private static class ExitCommand extends Command {
         @Override
-        public void execute(ArrayList<Task> taskList, Storage storage) {
-            Ui.showGoodbye();
+        public String execute(ArrayList<Task> taskList, Storage storage) {
+            return Ui.showGoodbye();
         }
 
 

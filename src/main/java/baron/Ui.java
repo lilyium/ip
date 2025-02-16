@@ -8,149 +8,129 @@ import baron.exception.WrongUsageException;
 import baron.task.Task;
 
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String WELCOME_MSG = "Hello! I'm Baron.\nWhat can I do for you?";
     private static final String GOODBYE_MSG = "Bye. Hope to see you again soon!";
 
     /**
-     * Prints a horizontal line
+     * Returns a welcome message
      */
-    public static void showLine() {
-        System.out.println(HORIZONTAL_LINE);
+    public static String showWelcome() {
+        return WELCOME_MSG;
     }
 
     /**
-     * Prints a welcome message
+     * Returns a goodbye message
      */
-    public static void showWelcome() {
-        System.out.println(HORIZONTAL_LINE + "\n" + WELCOME_MSG + "\n" + HORIZONTAL_LINE);
+    public static String showGoodbye() {
+        return GOODBYE_MSG;
     }
 
     /**
-     * Prints a goodbye message
-     */
-    public static void showGoodbye() {
-        System.out.println(GOODBYE_MSG);
-    }
-
-    /**
-     * Reads the user input
-     *
-     * @return The user input
-     */
-    public static String readCommand() {
-        Scanner s = new Scanner(System.in);
-        return s.nextLine();
-    }
-
-    /**
-     * Prints a message that indicates that a task has been marked as done
+     * Returns a message that indicates that a task has been marked as done
      *
      * @param task Task that is marked as done
      */
-    public static void showMark(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+    public static String showMark(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
-     * Prints a message that indicates that a task has been marked as not done yet
+     * Returns a message that indicates that a task has been marked as not done yet
      *
      * @param task Task that is marked as not done yet
      */
-    public static void showUnmark(Task task) {
-        System.out.println("Nice! I've marked this task as not done yet:\n" + task);
+    public static String showUnmark(Task task) {
+        return "Nice! I've marked this task as not done yet:\n" + task;
     }
 
     /**
-     * Prints a message that indicates that a task has been added
+     * Returns a message that indicates that a task has been added
      *
      * @param task Task that is added
      */
-    public static void showAddTask(Task task) {
-        System.out.println("Got it. I've added this task:\n  " + task);
+    public static String showAddTask(Task task) {
+        return "Got it. I've added this task:\n  " + task.toString();
     }
 
     /**
-     * Prints a message that indicates that a task had been deleted
+     * Returns a message that indicates that a task had been deleted
      *
      * @param task Task that is deleted
      */
-    public static void showDeleteTask(Task task) {
-        System.out.println("Noted. I've removed this task:\n  " + task);
+    public static String showDeleteTask(Task task) {
+        return "Noted. I've removed this task:\n  " + task.toString();
     }
 
     /**
-     * Prints a message that indicates the number of tasks in a list
+     * Returns a message that indicates the number of tasks in a list
      *
      * @param taskList List of tasks
      */
-    public static void showNumberOfTasks(ArrayList<Task> taskList) {
+    public static String showNumberOfTasks(ArrayList<Task> taskList) {
         int noOfTasks = taskList.size();
         if (noOfTasks == 0) {
-            System.out.println("Now you have no tasks in the list.");
+            return "Now you have no tasks in the list.";
         } else if (noOfTasks == 1) {
-            System.out.println("Now you have 1 task in the list.");
+            return "Now you have 1 task in the list.";
         } else {
-            System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+            return "Now you have " + noOfTasks + " tasks in the list.";
         }
     }
 
     /**
-     * Iterates through a list of tasks and prints out its details
+     * Iterates through a list of tasks and returns its details
      *
      * @param taskList List of tasks
      */
-    public static void showTasks(ArrayList<Task> taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public static String showTasks(ArrayList<Task> taskList) {
+        StringBuilder display = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + ". " + taskList.get(i));
+            display.append("\n").append(i + 1).append(". ").append(taskList.get(i));
         }
+        return display.toString();
     }
 
     /**
-     * Iterates through a list of tasks that match a search term and prints out its details
+     * Iterates through a list of tasks that match a search term and returns its details
      *
      * @param matchList List of tasks that match a search term
      */
-    public static void showMatchingTasks(ArrayList<Task> matchList) {
-        System.out.println("Here are the matching tasks in your list:");
+    public static String showMatchingTasks(ArrayList<Task> matchList) {
+        StringBuilder display = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < matchList.size(); i++) {
-            System.out.println(i + 1 + ". " + matchList.get(i));
+            display.append("\n").append(i + 1).append(". ").append(matchList.get(i));
         }
+        return display.toString();
+
     }
 
     /**
-     * Prints out an error message corresponding to the exception thrown
+     * Returns an error message corresponding to the exception thrown
      *
      * @param e An exception thrown by the application
      */
-    public static void showError(BaronException e) {
+    public static String showError(BaronException e) {
         if (e instanceof WrongUsageException wrongUsageException) {
             switch (wrongUsageException.getCommandType()) {
             case LIST:
-                System.out.println("Wrong usage of command! Try: list");
-                break;
+                return "Wrong usage of command! Try: list";
             case EXIT:
-                System.out.println("Wrong usage of command! Try: bye");
-                break;
+                return "Wrong usage of command! Try: bye";
             case MARK:
-                System.out.println("Wrong usage of command! Try: mark [index]");
-                break;
+                return "Wrong usage of command! Try: mark [index]";
             case UNMARK:
-                System.out.println("Wrong usage of command! Try: unmark [index]");
-                break;
+                return "Wrong usage of command! Try: unmark [index]";
             case TODO:
-                System.out.println("Wrong usage of command! Try: todo [description]");
-                break;
+                return "Wrong usage of command! Try: todo [description]";
             case DEADLINE:
-                System.out.println("Wrong usage of command! Try: deadline [description] /by [deadline]");
-                break;
+                return "Wrong usage of command! Try: deadline [description] /by [deadline]";
             case EVENT:
-                System.out.println("Wrong usage of command! Try: event [description] /from [start time] /to [end time]");
-                break;
+                return "Wrong usage of command! Try: event [description] /from [start time] /to [end time]";
+            default:
+                return e.getMessage();
             }
         } else {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

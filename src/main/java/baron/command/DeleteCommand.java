@@ -15,12 +15,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
+    public String execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
         try {
             Task task = taskList.remove(this.index - 1);
-            Ui.showDeleteTask(task);
-            Ui.showNumberOfTasks(taskList);
             storage.saveTasks(taskList);
+            return Ui.showDeleteTask(task) + "\n" + Ui.showNumberOfTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException(index);
         }
