@@ -15,12 +15,12 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
+    public String execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
         try {
             Task task = taskList.get(this.index - 1);
             task.unmark();
-            Ui.showUnmark(task);
             storage.saveTasks(taskList);
+            return Ui.showUnmark(task);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException(index);
         }

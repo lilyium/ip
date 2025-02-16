@@ -14,14 +14,14 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> taskList, Storage storage) {
+    public String execute(ArrayList<Task> taskList, Storage storage) {
         ArrayList<Task> matchList = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getTaskName().contains(searchTerm)) {
                 matchList.add(task);
             }
         }
-        Ui.showMatchingTasks(matchList);
+        return Ui.showMatchingTasks(matchList);
     }
 
     @Override

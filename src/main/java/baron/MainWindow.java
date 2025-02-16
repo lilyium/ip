@@ -28,6 +28,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getBaronDialog(Ui.showWelcome(), baronImage)
+        );
     }
 
     /** Injects the Baron instance */
