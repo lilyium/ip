@@ -1,12 +1,15 @@
 package baron.command;
 
-import baron.Storage;
-import baron.Ui;
-import baron.task.Task;
-import baron.task.ToDoTask;
-
 import java.util.ArrayList;
 
+import baron.task.Task;
+import baron.task.ToDoTask;
+import baron.Storage;
+import baron.Ui;
+
+/**
+ * Class for command that adds a todo task
+ */
 public class ToDoCommand extends Command {
     private final String taskName;
 
@@ -15,12 +18,14 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> taskList, Storage storage) {
+    public String execute(ArrayList<Task> taskList, Storage storage) {
+        assert taskList != null : "Task list cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task task = new ToDoTask(taskName);
         taskList.add(task);
-        Ui.showAddTask(task);
-        Ui.showNumberOfTasks(taskList);
         storage.saveTasks(taskList);
+        return Ui.showAddTask(task) + "\n" + Ui.showNumberOfTasks(taskList);
     }
 
     @Override

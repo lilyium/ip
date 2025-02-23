@@ -1,12 +1,15 @@
 package baron.command;
 
-import baron.Storage;
-import baron.Ui;
-import baron.exception.InvalidTaskIndexException;
-import baron.task.Task;
-
 import java.util.ArrayList;
 
+import baron.exception.InvalidTaskIndexException;
+import baron.task.Task;
+import baron.Storage;
+import baron.Ui;
+
+/**
+ * Class for command that deletes a task
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
@@ -15,12 +18,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
+    public String execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
+        assert taskList != null : "Task list cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         try {
             Task task = taskList.remove(this.index - 1);
-            Ui.showDeleteTask(task);
-            Ui.showNumberOfTasks(taskList);
             storage.saveTasks(taskList);
+            return Ui.showDeleteTask(task) + "\n" + Ui.showNumberOfTasks(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException(index);
         }
