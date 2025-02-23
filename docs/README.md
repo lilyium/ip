@@ -1,5 +1,7 @@
 # Baron User Guide
 
+![Product screenshot](Ui.png)
+
 Baron is a ~~scuffed~~ chatbot designed for users to manage tasks efficiently.
 
 ## Table of Contents
