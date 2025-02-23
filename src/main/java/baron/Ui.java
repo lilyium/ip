@@ -1,7 +1,6 @@
 package baron;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import baron.exception.BaronException;
 import baron.exception.WrongUsageException;

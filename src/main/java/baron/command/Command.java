@@ -26,10 +26,6 @@ public abstract class Command {
 
     public abstract String execute(ArrayList<Task> taskList, Storage storage) throws BaronException;
 
-    public boolean isExit() {
-        return false;
-    }
-
     @Override
     public abstract boolean equals(Object o);
 
@@ -63,11 +59,6 @@ public abstract class Command {
             return Ui.showGoodbye();
         }
 
-
-        @Override
-        public boolean isExit() {
-            return true;
-        }
 
         @Override
         public boolean equals(Object o) {
