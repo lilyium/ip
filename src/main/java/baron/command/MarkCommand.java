@@ -7,6 +7,9 @@ import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Class for command that marks a task as complete
+ */
 public class MarkCommand extends Command {
     private final int index;
 

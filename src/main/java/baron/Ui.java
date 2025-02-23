@@ -6,6 +6,9 @@ import baron.exception.BaronException;
 import baron.exception.WrongUsageException;
 import baron.task.Task;
 
+/**
+ * Ui generates responses to the user's input that are to be displayed
+ */
 public class Ui {
     private static final String WELCOME_MSG = "Hello! I'm Baron.\nWhat can I do for you?";
     private static final String GOODBYE_MSG = "Bye. Hope to see you again soon!";

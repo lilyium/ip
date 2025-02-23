@@ -2,6 +2,9 @@ package baron.exception;
 
 import baron.command.Command.CommandType;
 
+/**
+ * Exception that is thrown when the user uses a command inappropriately, either with too few or too many arguments
+ */
 public class WrongUsageException extends BaronException {
     private final CommandType commandType;
 

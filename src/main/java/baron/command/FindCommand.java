@@ -6,6 +6,9 @@ import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Class for command that finds tasks matching a search term
+ */
 public class FindCommand extends Command {
     private final String searchTerm;
 

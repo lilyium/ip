@@ -8,6 +8,9 @@ import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Class for command that adds a deadline task
+ */
 public class DeadlineCommand extends Command {
     private final String taskName;
     private final LocalDateTime deadline;

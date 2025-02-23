@@ -7,6 +7,9 @@ import baron.task.ToDoTask;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Class for command that adds a todo task
+ */
 public class ToDoCommand extends Command {
     private final String taskName;
 

@@ -27,6 +27,9 @@ import baron.task.EventTask;
 import baron.task.Task;
 import baron.task.ToDoTask;
 
+/**
+ * Parser interprets the user input and save file contents
+ */
 public class Parser {
     public static final DateTimeFormatter DATETIMEFORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private static final String DELIMITER = " \\| ";
@@ -41,7 +44,7 @@ public class Parser {
      *
      * @param input The user input
      * @return Command object corresponding to the user input
-     * @throws EmptyDescriptionException  If user input is empty
+     * @throws EmptyDescriptionException  If user input contains empty fields
      * @throws InvalidCommandException    If the command given is not recognised
      * @throws WrongUsageException        If a command has been used wrongly
      * @throws ReservedCharacterException If reserved characters such as | are used
