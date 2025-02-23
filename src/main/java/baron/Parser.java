@@ -58,22 +58,31 @@ public class Parser {
         } else if (splitInput.length == 1) {
             String keyword = splitInput[0];
             switch (keyword) {
+            case "l":
             case "list":
                 return Command.LIST_COMMAND;
+            case "b":
             case "bye":
                 return Command.EXIT_COMMAND;
+            case "m":
             case "mark":
                 throw new WrongUsageException(CommandType.MARK);
+            case "um":
             case "unmark":
                 throw new WrongUsageException(CommandType.UNMARK);
+            case "t":
             case "todo":
                 throw new WrongUsageException(CommandType.TODO);
+            case "d":
             case "deadline":
                 throw new WrongUsageException(CommandType.DEADLINE);
+            case "e":
             case "event":
                 throw new WrongUsageException(CommandType.EVENT);
+            case "del":
             case "delete":
                 throw new WrongUsageException(CommandType.DELETE);
+            case "f":
             case "find":
                 throw new WrongUsageException(CommandType.FIND);
             default:
@@ -83,22 +92,31 @@ public class Parser {
             String keyword = splitInput[0];
             String details = splitInput[1].trim();
             switch (keyword) {
+            case "l":
             case "list":
                 throw new WrongUsageException(CommandType.LIST);
+            case "b":
             case "bye":
                 throw new WrongUsageException(CommandType.EXIT);
+            case "m":
             case "mark":
                 return parseMarkCommand(details);
+            case "um":
             case "unmark":
                 return parseUnmarkCommand(details);
+            case "t":
             case "todo":
                 return parseToDoCommand(details);
+            case "d":
             case "deadline":
                 return parseDeadlineCommand(details);
+            case "e":
             case "event":
                 return parseEventCommand(details);
+            case "del":
             case "delete":
                 return parseDeleteCommand(details);
+            case "f":
             case "find":
                 return parseFindCommand(details);
             default:
