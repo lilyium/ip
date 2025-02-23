@@ -16,6 +16,9 @@ public class ToDoCommand extends Command {
 
     @Override
     public String execute(ArrayList<Task> taskList, Storage storage) {
+        assert taskList != null : "Task list cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task task = new ToDoTask(taskName);
         taskList.add(task);
         storage.saveTasks(taskList);

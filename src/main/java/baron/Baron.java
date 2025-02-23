@@ -18,6 +18,8 @@ public class Baron {
      * @param filePath The storage file path
      */
     public Baron(String filePath) {
+        assert filePath != null : "File path string cannot be null";
+
         this.storage = new Storage(filePath);
         this.taskList = storage.loadSavedTasks();
     }
@@ -35,6 +37,8 @@ public class Baron {
      * @param input The user input
      */
     public String getResponse(String input) {
+        assert input != null : "Input cannot be null";
+
         try {
             Command command = Parser.parseCommand(input);
             return command.execute(taskList, storage);

@@ -30,6 +30,8 @@ public class Ui {
      * @param task Task that is marked as done
      */
     public static String showMark(Task task) {
+        assert task != null : "Task cannot be null";
+
         return "Nice! I've marked this task as done:\n" + task;
     }
 
@@ -39,6 +41,8 @@ public class Ui {
      * @param task Task that is marked as not done yet
      */
     public static String showUnmark(Task task) {
+        assert task != null : "Task cannot be null";
+
         return "Nice! I've marked this task as not done yet:\n" + task;
     }
 
@@ -48,6 +52,8 @@ public class Ui {
      * @param task Task that is added
      */
     public static String showAddTask(Task task) {
+        assert task != null : "Task cannot be null";
+
         return "Got it. I've added this task:\n  " + task.toString();
     }
 
@@ -57,6 +63,8 @@ public class Ui {
      * @param task Task that is deleted
      */
     public static String showDeleteTask(Task task) {
+        assert task != null : "Task cannot be null";
+
         return "Noted. I've removed this task:\n  " + task.toString();
     }
 
@@ -66,6 +74,8 @@ public class Ui {
      * @param taskList List of tasks
      */
     public static String showNumberOfTasks(ArrayList<Task> taskList) {
+        assert taskList != null : "Task list cannot be null";
+
         int noOfTasks = taskList.size();
         if (noOfTasks == 0) {
             return "Now you have no tasks in the list.";
@@ -82,6 +92,8 @@ public class Ui {
      * @param taskList List of tasks
      */
     public static String showTasks(ArrayList<Task> taskList) {
+        assert taskList != null : "Task list cannot be null";
+
         StringBuilder display = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             display.append("\n").append(i + 1).append(". ").append(taskList.get(i));
@@ -95,6 +107,8 @@ public class Ui {
      * @param matchList List of tasks that match a search term
      */
     public static String showMatchingTasks(ArrayList<Task> matchList) {
+        assert matchList != null : "List of tasks that match a search term cannot be null";
+
         StringBuilder display = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < matchList.size(); i++) {
             display.append("\n").append(i + 1).append(". ").append(matchList.get(i));

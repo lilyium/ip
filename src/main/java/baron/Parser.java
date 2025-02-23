@@ -49,6 +49,8 @@ public class Parser {
      */
     public static Command parseCommand(String input) throws EmptyDescriptionException, InvalidCommandException,
             WrongUsageException, ReservedCharacterException, InvalidDateTimeException {
+        assert input != null : "Input cannot be null";
+
         String trimmedInput = input.trim();
         String[] splitInput = trimmedInput.split(" ", 2);
         if (trimmedInput.isEmpty()) {
@@ -106,6 +108,8 @@ public class Parser {
     }
 
     private static MarkCommand parseMarkCommand(String details) throws WrongUsageException {
+        assert details != null : "Arguments to a mark command cannot be null";
+
         try {
             return new MarkCommand(Integer.parseUnsignedInt(details));
         } catch (NumberFormatException e) {
@@ -114,6 +118,8 @@ public class Parser {
     }
 
     private static UnmarkCommand parseUnmarkCommand(String details) throws WrongUsageException {
+        assert details != null : "Arguments to an unmark command cannot be null";
+
         try {
             return new UnmarkCommand(Integer.parseUnsignedInt(details));
         } catch (NumberFormatException e) {
@@ -122,12 +128,16 @@ public class Parser {
     }
 
     private static ToDoCommand parseToDoCommand(String details) throws ReservedCharacterException {
+        assert details != null : "Arguments to a todo command cannot be null";
+
         checkReservedCharacters(details);
         return new ToDoCommand(details);
     }
 
     private static DeadlineCommand parseDeadlineCommand(String details) throws WrongUsageException,
             ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
+        assert details != null : "Arguments to a deadline command cannot be null";
+
         int idx = details.indexOf("/by");
         if (idx == -1) {
             throw new WrongUsageException(CommandType.DEADLINE);
@@ -144,6 +154,8 @@ public class Parser {
 
     private static EventCommand parseEventCommand(String details) throws WrongUsageException,
             ReservedCharacterException, EmptyDescriptionException, InvalidDateTimeException {
+        assert details != null : "Arguments to an event command cannot be null";
+
         int idx1 = details.indexOf("/from");
         int idx2 = details.indexOf("/to");
         if (idx1 == -1 || idx2 == -1) {
@@ -162,6 +174,8 @@ public class Parser {
     }
 
     private static DeleteCommand parseDeleteCommand(String details) throws WrongUsageException {
+        assert details != null : "Arguments to a delete command cannot be null";
+
         try {
             return new DeleteCommand(Integer.parseUnsignedInt(details));
         } catch (NumberFormatException e) {
@@ -170,11 +184,15 @@ public class Parser {
     }
 
     private static FindCommand parseFindCommand(String details) throws ReservedCharacterException {
+        assert details != null : "Arguments to a find command cannot be null";
+
         checkReservedCharacters(details);
         return new FindCommand(details);
     }
 
     private static void checkReservedCharacters(String details) throws ReservedCharacterException {
+        assert details != null : "Attempting to check if null contains reserved characters";
+
         if (details.contains("|")) {
             throw new ReservedCharacterException();
         }
@@ -188,6 +206,8 @@ public class Parser {
      * @throws CorruptedSaveException If savedTask is not of the correct format
      */
     public static Task parseSavedTask(String savedTask) throws CorruptedSaveException {
+        assert savedTask != null : "String representation of saved task cannot be null";
+
         String[] splitSavedTask = savedTask.split(DELIMITER);
         try {
             switch (splitSavedTask[0]) {
@@ -215,6 +235,8 @@ public class Parser {
      * @throws InvalidDateTimeException If dateTimeString is not of the correct format
      */
     public static LocalDateTime parseDateTime(String dateTimeString) throws InvalidDateTimeException {
+        assert dateTimeString != null : "Datetime string cannot be null";
+
         DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
                 .append(DateTimeFormatter.ofPattern(
                         "[yyyy-M-d]" + "[d-M-yyyy]" + "[d-M]" + "[yyyy/M/d]" + "[d/M/yyyy]" + "[d/M]"

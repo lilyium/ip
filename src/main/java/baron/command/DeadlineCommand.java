@@ -13,12 +13,18 @@ public class DeadlineCommand extends Command {
     private final LocalDateTime deadline;
 
     public DeadlineCommand(String taskName, LocalDateTime deadline) {
+        assert taskName != null : "Task name cannot be null";
+        assert deadline != null : "Deadline cannot be null";
+
         this.taskName = taskName;
         this.deadline = deadline;
     }
 
     @Override
     public String execute(ArrayList<Task> taskList, Storage storage) {
+        assert taskList != null : "Task list cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task task = new DeadlineTask(this.taskName, this.deadline);
         taskList.add(task);
         storage.saveTasks(taskList);
