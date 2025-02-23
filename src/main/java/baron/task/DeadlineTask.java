@@ -1,8 +1,8 @@
 package baron.task;
 
-import baron.Parser;
-
 import java.time.LocalDateTime;
+
+import baron.Parser;
 
 public class DeadlineTask extends Task {
     private LocalDateTime deadline;

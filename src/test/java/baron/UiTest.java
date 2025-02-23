@@ -1,19 +1,17 @@
 package baron;
 
-import baron.command.Command;
-import baron.exception.BaronException;
-import baron.task.Task;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import baron.task.Task;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class UiTest {
@@ -36,6 +34,7 @@ public class UiTest {
             }
         }
     }
+
     private static final ArrayList<Task> taskList = new ArrayList<>();
     private static final ByteArrayOutputStream stdoutCaptor = new ByteArrayOutputStream();
     private static final String lineSeparator = System.lineSeparator();

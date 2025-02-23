@@ -1,8 +1,5 @@
 package baron;
 
-import baron.exception.BaronException;
-import baron.task.Task;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,10 +9,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import baron.exception.BaronException;
+import baron.task.Task;
+
 public class Storage {
     private final Path filePath;
 
     public Storage(String filePath) throws InvalidPathException {
+        assert filePath != null : "File path string cannot be null";
+
         this.filePath = Paths.get(filePath);
     }
 
@@ -41,6 +43,8 @@ public class Storage {
         try (Scanner s = new Scanner(filePath)) {
             while (s.hasNextLine()) {
                 String task = s.nextLine();
+                assert !task.trim().isEmpty() : "Read a blank line from save file";
+
                 taskList.add(Parser.parseSavedTask(task));
             }
         } catch (IOException e) {
@@ -59,6 +63,8 @@ public class Storage {
      * @param taskList A list of tasks to be saved to a save file
      */
     public void saveTasks(ArrayList<Task> taskList) {
+        assert taskList != null : "Task list cannot be null";
+
         try (FileWriter fw = new FileWriter(filePath.toFile())) {
             for (Task task : taskList) {
                 fw.write(task.toSaveFormat() + System.lineSeparator());

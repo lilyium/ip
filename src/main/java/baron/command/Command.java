@@ -1,11 +1,11 @@
 package baron.command;
 
-import baron.Storage;
-import baron.Ui;
+import java.util.ArrayList;
+
 import baron.exception.BaronException;
 import baron.task.Task;
-
-import java.util.ArrayList;
+import baron.Storage;
+import baron.Ui;
 
 public abstract class Command {
     public enum CommandType {
@@ -16,59 +16,61 @@ public abstract class Command {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
+
     public static final Command EMPTY_COMMAND = new EmptyCommand();
     public static final Command LIST_COMMAND = new ListCommand();
     public static final Command EXIT_COMMAND = new ExitCommand();
 
-    public abstract void execute(ArrayList<Task> taskList, Storage storage) throws BaronException;
-
-    public boolean isExit() {
-        return false;
-    }
+    public abstract String execute(ArrayList<Task> taskList, Storage storage) throws BaronException;
 
     @Override
     public abstract boolean equals(Object o);
 
     private static class EmptyCommand extends Command {
         @Override
-        public void execute(ArrayList<Task> taskList, Storage storage) {
+        public String execute(ArrayList<Task> taskList, Storage storage) {
+            assert taskList != null : "Task list cannot be null";
+            assert storage != null : "Storage cannot be null";
 
+            return "Meow, say something!";
         }
 
         @Override
-        public boolean equals (Object o) {
+        public boolean equals(Object o) {
             return this == o;
         }
     }
 
-    public static class ListCommand extends Command {
+    private static class ListCommand extends Command {
         @Override
-        public void execute(ArrayList<Task> taskList, Storage storage) {
-            Ui.showTasks(taskList);
+        public String execute(ArrayList<Task> taskList, Storage storage) {
+            assert taskList != null : "Task list cannot be null";
+            assert storage != null : "Storage cannot be null";
+
+            return Ui.showTasks(taskList);
         }
 
         @Override
-        public boolean equals (Object o) {
+        public boolean equals(Object o) {
             return this == o;
         }
     }
 
     private static class ExitCommand extends Command {
         @Override
-        public void execute(ArrayList<Task> taskList, Storage storage) {
-            Ui.showGoodbye();
+        public String execute(ArrayList<Task> taskList, Storage storage) {
+            assert taskList != null : "Task list cannot be null";
+            assert storage != null : "Storage cannot be null";
+
+            return Ui.showGoodbye();
         }
 
 
         @Override
-        public boolean isExit() {
-            return true;
-        }
-
-        @Override
-        public boolean equals (Object o) {
+        public boolean equals(Object o) {
             return this == o;
         }
     }

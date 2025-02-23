@@ -1,8 +1,8 @@
 package baron.task;
 
-import baron.Parser;
-
 import java.time.LocalDateTime;
+
+import baron.Parser;
 
 public class EventTask extends Task {
     private final LocalDateTime startTime;
