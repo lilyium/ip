@@ -16,6 +16,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(ArrayList<Task> taskList, Storage storage) throws InvalidTaskIndexException {
+        assert taskList != null : "Task list cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         try {
             Task task = taskList.remove(this.index - 1);
             storage.saveTasks(taskList);
