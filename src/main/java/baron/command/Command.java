@@ -7,7 +7,13 @@ import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Abstract base class for all command types
+ */
 public abstract class Command {
+    /**
+     * Enum of all command types
+     */
     public enum CommandType {
         LIST,
         EXIT,

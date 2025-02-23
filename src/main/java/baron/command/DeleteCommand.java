@@ -7,6 +7,9 @@ import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Class for command that deletes a task
+ */
 public class DeleteCommand extends Command {
     private final int index;
 

@@ -6,6 +6,9 @@ import baron.command.Command;
 import baron.exception.BaronException;
 import baron.task.Task;
 
+/**
+ * Baron is the main application that interacts with the other components
+ */
 public class Baron {
     private static final String DEFAULTFILEPATH = "./data/baron.txt";
 

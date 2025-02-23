@@ -8,6 +8,9 @@ import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Class for command that adds an event task
+ */
 public class EventCommand extends Command {
     private final String taskName;
     private final LocalDateTime startTime;

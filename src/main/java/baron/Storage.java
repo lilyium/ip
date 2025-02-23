@@ -12,9 +12,18 @@ import java.util.Scanner;
 import baron.exception.BaronException;
 import baron.task.Task;
 
+/**
+ * Storage saves the tasks to a save file, as well as reads the tasks from a save file
+ */
 public class Storage {
     private final Path filePath;
 
+    /**
+     * Instantiates a Storage object
+     *
+     * @param filePath File path where tasks are saved to and loaded from
+     * @throws InvalidPathException If file path is invalid
+     */
     public Storage(String filePath) throws InvalidPathException {
         assert filePath != null : "File path string cannot be null";
 

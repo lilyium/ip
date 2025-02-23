@@ -7,6 +7,9 @@ import baron.task.Task;
 import baron.Storage;
 import baron.Ui;
 
+/**
+ * Class for command that unmarks a task
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
