@@ -36,6 +36,9 @@ public abstract class Command {
     private static class EmptyCommand extends Command {
         @Override
         public String execute(ArrayList<Task> taskList, Storage storage) {
+            assert taskList != null : "Task list cannot be null";
+            assert storage != null : "Storage cannot be null";
+
             return "Meow, say something!";
         }
 
@@ -48,6 +51,9 @@ public abstract class Command {
     private static class ListCommand extends Command {
         @Override
         public String execute(ArrayList<Task> taskList, Storage storage) {
+            assert taskList != null : "Task list cannot be null";
+            assert storage != null : "Storage cannot be null";
+
             return Ui.showTasks(taskList);
         }
 
@@ -60,6 +66,9 @@ public abstract class Command {
     private static class ExitCommand extends Command {
         @Override
         public String execute(ArrayList<Task> taskList, Storage storage) {
+            assert taskList != null : "Task list cannot be null";
+            assert storage != null : "Storage cannot be null";
+
             return Ui.showGoodbye();
         }
 

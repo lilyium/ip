@@ -14,6 +14,10 @@ public class EventCommand extends Command {
     private final LocalDateTime endTime;
 
     public EventCommand(String taskName, LocalDateTime startTime, LocalDateTime endTime) {
+        assert taskName != null : "Task name cannot be null";
+        assert startTime != null : "Start time cannot be null";
+        assert endTime != null : "End time cannot be null";
+
         this.taskName = taskName;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -21,6 +25,9 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(ArrayList<Task> taskList, Storage storage) {
+        assert taskList != null : "Task list cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task task = new EventTask(this.taskName, this.startTime, this.endTime);
         taskList.add(task);
         storage.saveTasks(taskList);

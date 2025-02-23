@@ -10,11 +10,16 @@ public class FindCommand extends Command {
     private final String searchTerm;
 
     public FindCommand(String searchTerm) {
+        assert searchTerm != null : "Search term cannot be null";
+
         this.searchTerm = searchTerm;
     }
 
     @Override
     public String execute(ArrayList<Task> taskList, Storage storage) {
+        assert taskList != null : "Task list cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         ArrayList<Task> matchList = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getTaskName().contains(searchTerm)) {
