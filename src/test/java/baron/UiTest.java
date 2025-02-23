@@ -2,17 +2,12 @@ package baron;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
-import baron.task.Task;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import baron.task.Task;
 
 public class UiTest {
     private static class TaskStub extends Task {
@@ -36,8 +31,6 @@ public class UiTest {
     }
 
     private static final ArrayList<Task> taskList = new ArrayList<>();
-    private static final ByteArrayOutputStream stdoutCaptor = new ByteArrayOutputStream();
-    private static final String lineSeparator = System.lineSeparator();
 
     @BeforeAll
     static void beforeAll() {
@@ -45,29 +38,15 @@ public class UiTest {
         taskList.add(new TaskStub(true, "not done task"));
     }
 
-
-    @BeforeEach
-    void beforeEach() {
-        System.setOut(new PrintStream(stdoutCaptor));
-        stdoutCaptor.reset();
-    }
-
-    @AfterEach
-    void afterEach() {
-        System.setOut(System.out);
-    }
-
     @Test
     void showTasks_validTaskList_printTasks() {
-        Ui.showTasks(taskList);
-        assertEquals("Here are the tasks in your list:" + lineSeparator
-                + "1. [ ] done task" + lineSeparator
-                + "2. [X] not done task" + lineSeparator, stdoutCaptor.toString(), "Tasks are printed incorrectly");
+        assertEquals("Here are the tasks in your list:\n1. [ ] done task\n2. [X] not done task", Ui.showTasks(taskList),
+                "Tasks are printed incorrectly");
     }
 
     @Test
     void showNumberOfTasks_validTaskList_printNumberOfTasks() {
-        Ui.showNumberOfTasks(taskList);
-        assertEquals("Now you have 2 tasks in the list." + lineSeparator, stdoutCaptor.toString(), "Number of tasks is printed incorrectly");
+        assertEquals("Now you have 2 tasks in the list.", Ui.showNumberOfTasks(taskList),
+                "Number of tasks is printed incorrectly");
     }
 }
